@@ -1,0 +1,1652 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dlaczego zawsze odpuszczasz po tygodniu? — Ebook</title>
+<meta name="description" content="Jak pokonać prokrastynację, okiełznać słomiany zapał i trwale zmienić swoje nawyki. Ebook oparty na neurobiologii.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+<style>
+/* ─────────────────────────────────────────
+   RESET & BASE
+───────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  background: #f8f6f1;
+  color: #1a1a18;
+  font-family: 'DM Sans', sans-serif;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ─────────────────────────────────────────
+   CSS VARIABLES
+───────────────────────────────────────── */
+:root {
+  --ink: #1a1a18;
+  --ink-soft: #3d3d38;
+  --ink-muted: #787870;
+  --page: #f8f6f1;
+  --page-warm: #f0ebe0;
+  --dark: #141412;
+  --accent: #c0392b;
+  --accent-deep: #962d22;
+  --accent-soft: #f5e8e7;
+  --rule: #ddd9ce;
+  --white: #ffffff;
+  --max: 1100px;
+  --gutter: clamp(24px, 5vw, 80px);
+}
+
+/* ─────────────────────────────────────────
+   SCROLL REVEAL
+───────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.75s cubic-bezier(.22,1,.36,1), transform 0.75s cubic-bezier(.22,1,.36,1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ─────────────────────────────────────────
+   NAV
+───────────────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 0 var(--gutter);
+  background: rgba(248,246,241,0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+nav.scrolled {
+  border-bottom-color: var(--rule);
+  box-shadow: 0 1px 24px rgba(0,0,0,0.06);
+}
+.nav-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-logo {
+  font-family: 'DM Serif Display', serif;
+  font-size: 15px;
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: 0.01em;
+}
+.nav-logo span { color: var(--accent); font-style: italic; }
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  border: none;
+  border-radius: 4px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+.nav-cta:hover { background: var(--accent-deep); transform: translateY(-1px); }
+
+/* ─────────────────────────────────────────
+   HERO
+───────────────────────────────────────── */
+.hero {
+  min-height: 100vh;
+  background: var(--dark);
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  padding: 120px var(--gutter) 80px;
+}
+
+/* Grid texture overlay */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+
+/* Radial glow */
+.hero::after {
+  content: '';
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: 60vw;
+  height: 60vw;
+  background: radial-gradient(ellipse, rgba(192,57,43,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 80px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 28px;
+}
+.hero-eyebrow::before {
+  content: '';
+  width: 32px;
+  height: 1.5px;
+  background: var(--accent);
+}
+
+.hero-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(40px, 5.5vw, 76px);
+  line-height: 1.08;
+  font-weight: 400;
+  color: #f8f6f1;
+  margin-bottom: 28px;
+  letter-spacing: -0.01em;
+}
+.hero-title em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.hero-subtitle {
+  font-size: clamp(16px, 1.8vw, 19px);
+  color: rgba(248,246,241,0.55);
+  margin-bottom: 44px;
+  max-width: 500px;
+  line-height: 1.7;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 36px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  border: none;
+  border-radius: 4px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 8px 32px rgba(192,57,43,0.3);
+}
+.btn-primary:hover {
+  background: var(--accent-deep);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(192,57,43,0.4);
+}
+
+.btn-secondary {
+  font-size: 14px;
+  color: rgba(248,246,241,0.5);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s;
+}
+.btn-secondary:hover { color: rgba(248,246,241,0.85); }
+
+.hero-stats {
+  display: flex;
+  gap: 32px;
+  margin-top: 48px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.stat-item {}
+.stat-number {
+  font-family: 'DM Serif Display', serif;
+  font-size: 32px;
+  font-weight: 400;
+  color: #f8f6f1;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.stat-number span { color: var(--accent); }
+.stat-label {
+  font-size: 12px;
+  color: rgba(248,246,241,0.4);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Book 3D mockup in hero */
+.hero-book {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.hero-book svg {
+  width: 100%;
+  max-width: 360px;
+  filter: drop-shadow(0 40px 80px rgba(0,0,0,0.6));
+  animation: float 6s ease-in-out infinite;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(-1deg); }
+  50% { transform: translateY(-14px) rotate(1deg); }
+}
+
+/* ─────────────────────────────────────────
+   PROBLEM SECTION
+───────────────────────────────────────── */
+.section-problem {
+  padding: clamp(80px,12vw,160px) var(--gutter);
+  background: var(--page);
+}
+.section-problem .inner {
+  max-width: var(--max);
+  margin: 0 auto;
+}
+.section-eyebrow {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-eyebrow::before {
+  content: '';
+  width: 24px;
+  height: 1.5px;
+  background: var(--accent);
+}
+.section-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(30px, 4vw, 52px);
+  line-height: 1.15;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 24px;
+  max-width: 680px;
+}
+.section-lead {
+  font-size: clamp(16px, 1.6vw, 19px);
+  color: var(--ink-soft);
+  max-width: 600px;
+  margin-bottom: 60px;
+  line-height: 1.75;
+}
+
+.loop-visual {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-wrap: wrap;
+  margin: 48px 0;
+  background: var(--dark);
+  border-radius: 12px;
+  padding: 40px 32px;
+  position: relative;
+  overflow: hidden;
+}
+.loop-visual::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 80% 50%, rgba(192,57,43,0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+.loop-step {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex: 1;
+  min-width: 140px;
+}
+.loop-bubble {
+  flex: 1;
+  text-align: center;
+  padding: 14px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.03);
+}
+.loop-bubble.red {
+  border-color: rgba(192,57,43,0.4);
+  background: rgba(192,57,43,0.08);
+}
+.loop-bubble-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(248,246,241,0.7);
+  line-height: 1.4;
+}
+.loop-bubble.red .loop-bubble-label { color: var(--accent); }
+.loop-arrow {
+  color: rgba(255,255,255,0.2);
+  font-size: 18px;
+  padding: 0 8px;
+  flex-shrink: 0;
+}
+
+.problem-quote {
+  margin: 48px 0 0;
+  padding: 32px 36px;
+  background: var(--page-warm);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+}
+.problem-quote p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(20px, 2.2vw, 28px);
+  font-style: italic;
+  color: var(--ink);
+  line-height: 1.55;
+  margin-bottom: 16px;
+}
+.problem-quote cite {
+  font-size: 13px;
+  color: var(--ink-muted);
+  font-style: normal;
+  letter-spacing: 0.04em;
+}
+
+/* ─────────────────────────────────────────
+   WHAT'S INSIDE
+───────────────────────────────────────── */
+.section-inside {
+  padding: clamp(80px,12vw,160px) var(--gutter);
+  background: var(--dark);
+  position: relative;
+  overflow: hidden;
+}
+.section-inside::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+  background-size: 80px 80px;
+  pointer-events: none;
+}
+.section-inside .inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+.section-inside .section-eyebrow { color: var(--accent); }
+.section-inside .section-title { color: #f8f6f1; max-width: 560px; }
+.section-inside .section-lead { color: rgba(248,246,241,0.5); }
+
+.chapters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-top: 56px;
+}
+.chapter-card {
+  background: #1c1c1a;
+  padding: 32px 28px;
+  transition: background 0.25s;
+  position: relative;
+}
+.chapter-card:hover { background: #222220; }
+.chapter-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s cubic-bezier(.22,1,.36,1);
+}
+.chapter-card:hover::after { transform: scaleX(1); }
+
+.chapter-num {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+  opacity: 0.8;
+}
+.chapter-name {
+  font-family: 'DM Serif Display', serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: #f8f6f1;
+  line-height: 1.35;
+  margin-bottom: 12px;
+}
+.chapter-desc {
+  font-size: 13.5px;
+  color: rgba(248,246,241,0.45);
+  line-height: 1.65;
+}
+.chapter-tag {
+  display: inline-block;
+  margin-top: 16px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(192,57,43,0.7);
+  background: rgba(192,57,43,0.1);
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+/* ─────────────────────────────────────────
+   RESULTS SECTION
+───────────────────────────────────────── */
+.section-results {
+  padding: clamp(80px,12vw,160px) var(--gutter);
+  background: var(--page);
+}
+.section-results .inner {
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 56px;
+}
+.result-card {
+  padding: 32px 28px;
+  background: var(--page-warm);
+  border-radius: 12px;
+  border: 1px solid var(--rule);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+.result-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.08);
+}
+.result-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--accent);
+}
+.result-icon {
+  font-size: 28px;
+  margin-bottom: 16px;
+  display: block;
+}
+.result-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+.result-desc {
+  font-size: 14.5px;
+  color: var(--ink-muted);
+  line-height: 1.7;
+}
+
+/* ─────────────────────────────────────────
+   SCIENCE SECTION
+───────────────────────────────────────── */
+.section-science {
+  padding: clamp(60px,8vw,120px) var(--gutter);
+  background: var(--page-warm);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.section-science .inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.science-text .section-title { max-width: none; }
+.science-text .section-lead { margin-bottom: 0; max-width: none; }
+.science-badges {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.science-badge {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 18px 20px;
+  background: var(--page);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+}
+.science-badge-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.science-badge-text {}
+.science-badge-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 3px;
+}
+.science-badge-desc {
+  font-size: 13px;
+  color: var(--ink-muted);
+  line-height: 1.55;
+}
+
+/* ─────────────────────────────────────────
+   FOR WHO
+───────────────────────────────────────── */
+.section-forwhom {
+  padding: clamp(80px,12vw,160px) var(--gutter);
+  background: var(--page);
+}
+.section-forwhom .inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.forwhom-yes h3, .forwhom-no h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 24px;
+  font-weight: 400;
+  margin-bottom: 24px;
+}
+.forwhom-yes h3 { color: var(--ink); }
+.forwhom-no h3 { color: var(--ink-muted); }
+.check-list { list-style: none; }
+.check-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: 15px;
+  color: var(--ink-soft);
+  line-height: 1.55;
+}
+.check-list li::before {
+  content: '✓';
+  color: #2e7d32;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.cross-list { list-style: none; }
+.cross-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: 15px;
+  color: var(--ink-muted);
+  line-height: 1.55;
+}
+.cross-list li::before {
+  content: '×';
+  color: var(--ink-muted);
+  font-weight: 400;
+  flex-shrink: 0;
+  font-size: 18px;
+  line-height: 1.3;
+}
+
+/* ─────────────────────────────────────────
+   TESTIMONIALS
+───────────────────────────────────────── */
+.section-testimonials {
+  padding: clamp(80px,12vw,160px) var(--gutter);
+  background: var(--dark);
+  position: relative;
+  overflow: hidden;
+}
+.section-testimonials::after {
+  content: '';
+  position: absolute;
+  bottom: -20%;
+  left: -10%;
+  width: 50vw;
+  height: 50vw;
+  background: radial-gradient(ellipse, rgba(192,57,43,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+.section-testimonials .inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+.section-testimonials .section-eyebrow { color: var(--accent); }
+.section-testimonials .section-title { color: #f8f6f1; }
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 52px;
+}
+.testimonial-card {
+  background: #1e1e1c;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 28px 24px;
+}
+.testimonial-stars {
+  display: flex;
+  gap: 3px;
+  margin-bottom: 16px;
+}
+.testimonial-stars span {
+  color: var(--accent);
+  font-size: 14px;
+}
+.testimonial-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  font-style: italic;
+  color: rgba(248,246,241,0.8);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.testimonial-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  flex-shrink: 0;
+}
+.testimonial-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(248,246,241,0.75);
+}
+.testimonial-role {
+  font-size: 12px;
+  color: rgba(248,246,241,0.35);
+}
+
+/* ─────────────────────────────────────────
+   CTA / PRICING
+───────────────────────────────────────── */
+.section-cta {
+  padding: clamp(80px,12vw,160px) var(--gutter);
+  background: var(--page);
+}
+.section-cta .inner {
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: center;
+}
+.section-cta .section-title { margin: 0 auto 20px; }
+.section-cta .section-lead { margin: 0 auto 48px; }
+
+.price-card {
+  background: var(--dark);
+  border-radius: 16px;
+  padding: 48px 40px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+.price-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(192,57,43,0.15) 0%, transparent 60%);
+  pointer-events: none;
+}
+.price-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+.price-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(192,57,43,0.12);
+  padding: 4px 14px;
+  border-radius: 20px;
+  margin-bottom: 24px;
+}
+.price-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 28px;
+  font-weight: 400;
+  color: #f8f6f1;
+  margin-bottom: 8px;
+}
+.price-amount {
+  font-family: 'DM Serif Display', serif;
+  font-size: 64px;
+  font-weight: 400;
+  color: #f8f6f1;
+  line-height: 1;
+  margin: 20px 0 8px;
+  position: relative;
+  z-index: 2;
+}
+.price-amount sup {
+  font-size: 28px;
+  vertical-align: super;
+  color: rgba(248,246,241,0.6);
+}
+.price-amount del {
+  font-size: 28px;
+  color: rgba(248,246,241,0.25);
+  margin-left: 12px;
+}
+.price-note {
+  font-size: 13px;
+  color: rgba(248,246,241,0.35);
+  margin-bottom: 32px;
+  position: relative;
+  z-index: 2;
+}
+.price-features {
+  list-style: none;
+  margin: 0 0 36px;
+  text-align: left;
+  position: relative;
+  z-index: 2;
+}
+.price-features li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-size: 14.5px;
+  color: rgba(248,246,241,0.7);
+}
+.price-features li::before {
+  content: '✓';
+  color: var(--accent);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.btn-buy {
+  display: block;
+  width: 100%;
+  padding: 18px 36px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 8px 32px rgba(192,57,43,0.35);
+  position: relative;
+  z-index: 2;
+}
+.btn-buy:hover {
+  background: var(--accent-deep);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 44px rgba(192,57,43,0.45);
+}
+.cta-guarantee {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--ink-muted);
+  margin-top: 20px;
+}
+.cta-guarantee svg { flex-shrink: 0; }
+
+/* ─────────────────────────────────────────
+   FAQ
+───────────────────────────────────────── */
+.section-faq {
+  padding: clamp(60px,8vw,120px) var(--gutter);
+  background: var(--page-warm);
+  border-top: 1px solid var(--rule);
+}
+.section-faq .inner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+.section-faq .section-title { text-align: center; margin: 0 auto 48px; }
+
+.faq-item {
+  border-bottom: 1px solid var(--rule);
+}
+.faq-question {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 20px 0;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--ink);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  text-align: left;
+  transition: color 0.2s;
+}
+.faq-question:hover { color: var(--accent); }
+.faq-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--rule);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 16px;
+  line-height: 1;
+  transition: background 0.2s, transform 0.3s;
+  color: var(--ink-muted);
+}
+.faq-item.open .faq-icon {
+  background: var(--accent);
+  color: #fff;
+  transform: rotate(45deg);
+}
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(.22,1,.36,1);
+}
+.faq-answer-inner {
+  padding: 0 0 20px;
+  font-size: 15px;
+  color: var(--ink-muted);
+  line-height: 1.75;
+}
+
+/* ─────────────────────────────────────────
+   FOOTER
+───────────────────────────────────────── */
+footer {
+  background: var(--dark);
+  padding: 48px var(--gutter);
+  text-align: center;
+}
+.footer-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+}
+.footer-logo {
+  font-family: 'DM Serif Display', serif;
+  font-size: 18px;
+  color: rgba(248,246,241,0.5);
+  margin-bottom: 16px;
+}
+.footer-logo em { color: var(--accent); font-style: italic; }
+.footer-legal {
+  font-size: 12px;
+  color: rgba(248,246,241,0.2);
+  letter-spacing: 0.04em;
+  line-height: 1.8;
+}
+.footer-legal a {
+  color: rgba(248,246,241,0.35);
+  text-decoration: none;
+}
+.footer-legal a:hover { color: rgba(248,246,241,0.6); }
+
+/* ─────────────────────────────────────────
+   FLOATING CTA BAR (mobile)
+───────────────────────────────────────── */
+.sticky-bar {
+  display: none;
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 999;
+  background: var(--dark);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding: 14px 24px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.sticky-bar-text {
+  font-size: 13px;
+  color: rgba(248,246,241,0.6);
+  line-height: 1.4;
+}
+.sticky-bar-text strong { color: #f8f6f1; font-size: 15px; display: block; }
+
+/* ─────────────────────────────────────────
+   RESPONSIVE
+───────────────────────────────────────── */
+@media (max-width: 900px) {
+  .hero-inner {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  .hero-book { order: -1; }
+  .hero-book svg { max-width: 260px; }
+  .hero-stats { gap: 24px; }
+
+  .section-science .inner { grid-template-columns: 1fr; gap: 48px; }
+  .section-forwhom .inner { grid-template-columns: 1fr; gap: 48px; }
+
+  .sticky-bar { display: flex; }
+  body { padding-bottom: 80px; }
+}
+
+@media (max-width: 600px) {
+  .loop-visual { flex-direction: column; gap: 8px; }
+  .loop-step { width: 100%; justify-content: center; }
+  .loop-arrow { transform: rotate(90deg); }
+  .price-amount { font-size: 48px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════ NAV ══════════ -->
+<nav id="main-nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Dlaczego <span>zawsze</span> odpuszczasz?</a>
+    <a href="#kup" class="nav-cta">Kup ebook →</a>
+  </div>
+</nav>
+
+<!-- ══════════ HERO ══════════ -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-eyebrow reveal">Ebook · Psychologia nawyków</div>
+
+      <h1 class="hero-title reveal reveal-delay-1">
+        Dlaczego<br>
+        <em>zawsze</em><br>
+        odpuszczasz<br>
+        po tygodniu?
+      </h1>
+
+      <p class="hero-subtitle reveal reveal-delay-2">
+        Jak pokonać prokrastynację, okiełznać słomiany zapał<br>
+        i trwale zmienić swoje nawyki — oparte na neurobiologii.
+      </p>
+
+      <div class="hero-actions reveal reveal-delay-3">
+        <a href="#kup" class="btn-primary">
+          Chcę to zmienić
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#srodek" class="btn-secondary">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.2"/><path d="M7 4v3l2 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          Co znajdziesz w środku
+        </a>
+      </div>
+
+      <div class="hero-stats reveal reveal-delay-4">
+        <div class="stat-item">
+          <div class="stat-number">6<span>+</span></div>
+          <div class="stat-label">Rozdziałów</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">66</div>
+          <div class="stat-label">Dni do zmiany</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">100<span>%</span></div>
+          <div class="stat-label">Praktyczne</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3D Book -->
+    <div class="hero-book reveal reveal-delay-2">
+      <svg viewBox="0 0 540 760" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="spG" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#0a0a09"/>
+            <stop offset="50%" stop-color="#252523"/>
+            <stop offset="100%" stop-color="#1a1a18"/>
+          </linearGradient>
+          <linearGradient id="topG" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#333330"/>
+            <stop offset="100%" stop-color="#1a1a18"/>
+          </linearGradient>
+          <linearGradient id="pgG" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#b8b4a8"/>
+            <stop offset="40%" stop-color="#e0dcd2"/>
+            <stop offset="100%" stop-color="#b0ac9e"/>
+          </linearGradient>
+          <linearGradient id="sheenG" x1="0%" y1="0%" x2="60%" y2="100%">
+            <stop offset="0%" stop-color="#fff" stop-opacity="0.05"/>
+            <stop offset="100%" stop-color="#000" stop-opacity="0.08"/>
+          </linearGradient>
+          <linearGradient id="frontShadeG" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#000" stop-opacity="0.2"/>
+            <stop offset="8%" stop-color="#000" stop-opacity="0"/>
+          </linearGradient>
+          <radialGradient id="glowG" cx="80%" cy="20%" r="60%">
+            <stop offset="0%" stop-color="#c0392b" stop-opacity="0.12"/>
+            <stop offset="100%" stop-color="transparent"/>
+          </radialGradient>
+          <filter id="bookShadow">
+            <feDropShadow dx="0" dy="20" stdDeviation="30" flood-color="#000" flood-opacity="0.5"/>
+          </filter>
+        </defs>
+
+        <g filter="url(#bookShadow)">
+          <!-- pages right -->
+          <polygon points="388,60 408,72 408,680 388,668" fill="url(#pgG)"/>
+          <!-- page lines -->
+          <line x1="390" y1="90" x2="406" y2="100" stroke="#aaa89e" stroke-width="0.5" opacity="0.6"/>
+          <line x1="390" y1="118" x2="406" y2="128" stroke="#aaa89e" stroke-width="0.5" opacity="0.5"/>
+          <line x1="390" y1="146" x2="406" y2="156" stroke="#aaa89e" stroke-width="0.5" opacity="0.5"/>
+          <line x1="390" y1="174" x2="406" y2="184" stroke="#aaa89e" stroke-width="0.5" opacity="0.5"/>
+          <line x1="390" y1="202" x2="406" y2="212" stroke="#aaa89e" stroke-width="0.5" opacity="0.5"/>
+          <line x1="390" y1="230" x2="406" y2="240" stroke="#aaa89e" stroke-width="0.5" opacity="0.5"/>
+          <line x1="390" y1="258" x2="406" y2="268" stroke="#aaa89e" stroke-width="0.5" opacity="0.4"/>
+          <line x1="390" y1="286" x2="406" y2="296" stroke="#aaa89e" stroke-width="0.5" opacity="0.4"/>
+          <line x1="390" y1="314" x2="406" y2="324" stroke="#aaa89e" stroke-width="0.5" opacity="0.4"/>
+          <line x1="390" y1="342" x2="406" y2="352" stroke="#aaa89e" stroke-width="0.5" opacity="0.4"/>
+          <line x1="390" y1="370" x2="406" y2="380" stroke="#aaa89e" stroke-width="0.5" opacity="0.4"/>
+          <line x1="390" y1="398" x2="406" y2="408" stroke="#aaa89e" stroke-width="0.5" opacity="0.4"/>
+          <line x1="390" y1="426" x2="406" y2="436" stroke="#aaa89e" stroke-width="0.5" opacity="0.4"/>
+          <line x1="390" y1="454" x2="406" y2="464" stroke="#aaa89e" stroke-width="0.5" opacity="0.4"/>
+          <line x1="390" y1="482" x2="406" y2="492" stroke="#aaa89e" stroke-width="0.5" opacity="0.4"/>
+          <line x1="390" y1="510" x2="406" y2="520" stroke="#aaa89e" stroke-width="0.5" opacity="0.4"/>
+          <line x1="390" y1="538" x2="406" y2="548" stroke="#aaa89e" stroke-width="0.5" opacity="0.4"/>
+          <line x1="390" y1="566" x2="406" y2="576" stroke="#aaa89e" stroke-width="0.5" opacity="0.4"/>
+          <line x1="390" y1="594" x2="406" y2="604" stroke="#aaa89e" stroke-width="0.5" opacity="0.4"/>
+          <line x1="390" y1="622" x2="406" y2="632" stroke="#aaa89e" stroke-width="0.5" opacity="0.4"/>
+          <line x1="390" y1="650" x2="406" y2="660" stroke="#aaa89e" stroke-width="0.5" opacity="0.4"/>
+
+          <!-- top face -->
+          <polygon points="132,56 388,56 408,38 152,38" fill="url(#topG)"/>
+
+          <!-- spine -->
+          <polygon points="152,38 132,56 132,672 152,690" fill="url(#spG)"/>
+          <line x1="148" y1="40" x2="148" y2="686" stroke="#c0392b" stroke-width="1.5" opacity="0.6"/>
+          <rect x="136" y="72" width="10" height="2" rx="1" fill="#c0392b" opacity="0.8"/>
+          <text transform="translate(142,660) rotate(-90)" font-family="Georgia,serif" font-size="11" fill="#f8f6f1" opacity="0.7" text-anchor="start">Dlaczego zawsze odpuszczasz po tygodniu?</text>
+
+          <!-- front cover -->
+          <rect x="132" y="56" width="256" height="616" fill="#1a1a18"/>
+          <!-- glow -->
+          <rect x="132" y="56" width="256" height="616" fill="url(#glowG)"/>
+
+          <!-- bg circles -->
+          <circle cx="340" cy="130" r="160" fill="none" stroke="#fff" stroke-width="0.5" opacity="0.05"/>
+          <circle cx="340" cy="130" r="100" fill="none" stroke="#fff" stroke-width="0.5" opacity="0.04"/>
+          <circle cx="175" cy="610" r="100" fill="none" stroke="#c0392b" stroke-width="0.5" opacity="0.06"/>
+
+          <!-- red bar -->
+          <rect x="154" y="90" width="26" height="2" rx="1" fill="#c0392b"/>
+
+          <!-- eyebrow -->
+          <text x="154" y="107" font-family="'DM Sans',sans-serif" font-size="7" font-weight="600" fill="#c0392b" letter-spacing="1.5">PSYCHOLOGIA NAWYKÓW</text>
+
+          <!-- title -->
+          <text x="154" y="155" font-family="Georgia,serif" font-size="34" font-weight="400" fill="#f8f6f1">Dlaczego</text>
+          <text x="154" y="195" font-family="Georgia,serif" font-size="34" font-weight="400" font-style="italic" fill="#c0392b">zawsze</text>
+          <text x="154" y="235" font-family="Georgia,serif" font-size="34" font-weight="400" fill="#f8f6f1">odpuszczasz</text>
+          <text x="154" y="272" font-family="Georgia,serif" font-size="34" font-weight="400" fill="#f8f6f1">po tygodniu?</text>
+
+          <!-- rule -->
+          <line x1="154" y1="288" x2="374" y2="288" stroke="#fff" stroke-width="0.5" opacity="0.14"/>
+
+          <!-- subtitle -->
+          <text x="154" y="305" font-family="'DM Sans',sans-serif" font-size="8.5" fill="#787870">Jak pokonać prokrastynację, okiełznać</text>
+          <text x="154" y="319" font-family="'DM Sans',sans-serif" font-size="8.5" fill="#787870">słomiany zapał i trwale zmienić nawyki.</text>
+
+          <!-- mini loop diagram -->
+          <circle cx="260" cy="490" r="90" fill="none" stroke="#fff" stroke-width="0.4" opacity="0.07"/>
+          <circle cx="260" cy="490" r="58" fill="none" stroke="#c0392b" stroke-width="0.4" opacity="0.15"/>
+
+          <rect x="224" y="394" width="72" height="20" rx="10" fill="#252523" stroke="#c0392b" stroke-width="0.7"/>
+          <text x="260" y="408" font-family="'DM Sans',sans-serif" font-size="7" fill="#c0392b" text-anchor="middle">Prokrastynacja</text>
+
+          <rect x="316" y="454" width="60" height="20" rx="10" fill="#252523" stroke="#ffffff" stroke-width="0.4" opacity="0.7"/>
+          <text x="346" y="468" font-family="'DM Sans',sans-serif" font-size="7" fill="#787870" text-anchor="middle">Nagły zapał</text>
+
+          <rect x="302" y="528" width="76" height="20" rx="10" fill="#252523" stroke="#c0392b" stroke-width="0.7"/>
+          <text x="340" y="542" font-family="'DM Sans',sans-serif" font-size="7" fill="#c0392b" text-anchor="middle">Wypalenie (7d)</text>
+
+          <rect x="166" y="528" width="70" height="20" rx="10" fill="#252523" stroke="#ffffff" stroke-width="0.4" opacity="0.7"/>
+          <text x="201" y="542" font-family="'DM Sans',sans-serif" font-size="7" fill="#787870" text-anchor="middle">Stare nawyki</text>
+
+          <rect x="150" y="454" width="76" height="20" rx="10" fill="#252523" stroke="#c0392b" stroke-width="0.7"/>
+          <text x="188" y="468" font-family="'DM Sans',sans-serif" font-size="7" fill="#c0392b" text-anchor="middle">Samobiczowanie</text>
+
+          <!-- connectors -->
+          <line x1="290" y1="404" x2="316" y2="452" stroke="#fff" stroke-width="0.4" opacity="0.14"/>
+          <line x1="344" y1="472" x2="338" y2="527" stroke="#fff" stroke-width="0.4" opacity="0.14"/>
+          <line x1="305" y1="543" x2="237" y2="543" stroke="#fff" stroke-width="0.4" opacity="0.14"/>
+          <line x1="170" y1="529" x2="182" y2="475" stroke="#fff" stroke-width="0.4" opacity="0.14"/>
+          <line x1="196" y1="455" x2="232" y2="406" stroke="#fff" stroke-width="0.4" opacity="0.14"/>
+
+          <text x="260" y="486" font-family="'DM Sans',sans-serif" font-size="7" fill="#fff" opacity="0.25" text-anchor="middle">Pętla</text>
+          <text x="260" y="498" font-family="'DM Sans',sans-serif" font-size="7" fill="#fff" opacity="0.25" text-anchor="middle">porażek</text>
+
+          <!-- bottom -->
+          <line x1="154" y1="640" x2="374" y2="640" stroke="#fff" stroke-width="0.4" opacity="0.1"/>
+          <text x="154" y="654" font-family="'DM Sans',sans-serif" font-size="6.5" fill="#3a3a36" letter-spacing="1">NEUROBIOLOGIA · NAWYKI · DYSCYPLINA</text>
+
+          <!-- sheen -->
+          <rect x="132" y="56" width="256" height="616" fill="url(#sheenG)"/>
+          <!-- left shadow -->
+          <rect x="132" y="56" width="256" height="616" fill="url(#frontShadeG)"/>
+        </g>
+
+        <!-- bottom face -->
+        <polygon points="132,672 152,690 408,682 388,668" fill="#0f0f0e"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ PROBLEM ══════════ -->
+<section class="section-problem">
+  <div class="inner">
+    <div class="section-eyebrow reveal">Znasz to uczucie</div>
+    <h2 class="section-title reveal reveal-delay-1">Zaczynałeś już tyle razy.<br>I zawsze kończyło się tak samo.</h2>
+    <p class="section-lead reveal reveal-delay-2">Niedzielny wieczór. Postanowienia. Kilka dobrych dni. A potem — cisza. Wracasz do punktu wyjścia z dodatkowym bagażem: poczuciem, że znowu Ci nie wyszło.</p>
+
+    <div class="loop-visual reveal reveal-delay-2">
+      <div class="loop-step">
+        <div class="loop-bubble red"><div class="loop-bubble-label">Prokrastynacja</div></div>
+        <div class="loop-arrow">→</div>
+      </div>
+      <div class="loop-step">
+        <div class="loop-bubble"><div class="loop-bubble-label">Nagły zapał</div></div>
+        <div class="loop-arrow">→</div>
+      </div>
+      <div class="loop-step">
+        <div class="loop-bubble red"><div class="loop-bubble-label">Wypalenie<br>(ok. 7 dnia)</div></div>
+        <div class="loop-arrow">→</div>
+      </div>
+      <div class="loop-step">
+        <div class="loop-bubble"><div class="loop-bubble-label">Stare nawyki</div></div>
+        <div class="loop-arrow">→</div>
+      </div>
+      <div class="loop-step">
+        <div class="loop-bubble red"><div class="loop-bubble-label">Samobiczowanie</div></div>
+        <div class="loop-arrow" style="opacity:0.4">↩</div>
+      </div>
+    </div>
+
+    <div class="problem-quote reveal">
+      <p>„Problem nie leży w Twoim charakterze. Leży w tym, że przez lata nikt nie wyjaśnił Ci, jak naprawdę działa zmiana."</p>
+      <cite>— z rozdziału pierwszego</cite>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ INSIDE ══════════ -->
+<section class="section-inside" id="srodek">
+  <div class="inner">
+    <div class="section-eyebrow reveal">Co znajdziesz w środku</div>
+    <h2 class="section-title reveal reveal-delay-1">7 rozdziałów.<br>Zero pustych porad.</h2>
+    <p class="section-lead reveal reveal-delay-2">Każdy rozdział kończy się jednym zadaniem do wdrożenia na już — nie po przeczytaniu całej książki.</p>
+
+    <div class="chapters-grid">
+      <div class="chapter-card reveal">
+        <div class="chapter-num">Wstęp</div>
+        <div class="chapter-name">Anatomia Twojej Pętli Porażek</div>
+        <div class="chapter-desc">Zmapowanie problemu — dlaczego to NIE jest kwestia braku genu dyscypliny.</div>
+      </div>
+      <div class="chapter-card reveal reveal-delay-1">
+        <div class="chapter-num">Rozdział 01</div>
+        <div class="chapter-name">Pułapka idealnego momentu</div>
+        <div class="chapter-desc">Dlaczego czekanie na poniedziałek to biologiczne złudzenie — i jak z niego wyjść.</div>
+        <span class="chapter-tag">Prokrastynacja</span>
+      </div>
+      <div class="chapter-card reveal reveal-delay-2">
+        <div class="chapter-num">Rozdział 02</div>
+        <div class="chapter-name">Hackowanie opornego mózgu</div>
+        <div class="chapter-desc">Jak oszukać układ limbiczny i dlaczego scrollowanie to nie lenistwo — to ucieczka od lęku.</div>
+        <span class="chapter-tag">Neurobiologia</span>
+      </div>
+      <div class="chapter-card reveal">
+        <div class="chapter-num">Rozdział 03</div>
+        <div class="chapter-name">Dlaczego chemia mózgu rzuca Cię na kolana po 7 dniach</div>
+        <div class="chapter-desc">Koniec fazy dopaminowej i powrót starego „ja" — i co z tym zrobić.</div>
+        <span class="chapter-tag">Dopamina</span>
+      </div>
+      <div class="chapter-card reveal reveal-delay-1">
+        <div class="chapter-num">Rozdział 04</div>
+        <div class="chapter-name">Strategia 1% i Twój Plan Awaryjny</div>
+        <div class="chapter-desc">Mikrokroki i instrukcja działania w czarny dzień, kiedy bardzo się nie chce.</div>
+        <span class="chapter-tag">System</span>
+      </div>
+      <div class="chapter-card reveal reveal-delay-2">
+        <div class="chapter-num">Rozdział 05</div>
+        <div class="chapter-name">Architektura otoczenia kontra siła woli</div>
+        <div class="chapter-desc">Jak zaprojektować codzienność tak, żeby dobre nawyki były łatwe, a złe wymagały wysiłku.</div>
+        <span class="chapter-tag">Środowisko</span>
+      </div>
+      <div class="chapter-card reveal">
+        <div class="chapter-num">Rozdział 06</div>
+        <div class="chapter-name">Trwała dyscyplina bez samobiczowania</div>
+        <div class="chapter-desc">Kotwiczenie nawyków, trackowanie i instrukcja powrotu na tory po wpadce.</div>
+        <span class="chapter-tag">Nawyki</span>
+      </div>
+      <div class="chapter-card reveal reveal-delay-1">
+        <div class="chapter-num">Zakończenie</div>
+        <div class="chapter-name">Twój nowy domyślny system operacyjny</div>
+        <div class="chapter-desc">Co teraz. Jak utrzymać zmianę, gdy entuzjazm minie — na zawsze.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ RESULTS ══════════ -->
+<section class="section-results">
+  <div class="inner">
+    <div class="section-eyebrow reveal">Co zmieni się po przeczytaniu</div>
+    <h2 class="section-title reveal reveal-delay-1">Nie chodzi o kolejny dobry tydzień.<br>Chodzi o trwałą zmianę.</h2>
+
+    <div class="results-grid">
+      <div class="result-card reveal">
+        <span class="result-icon">🧠</span>
+        <div class="result-title">Zrozumiesz, co się naprawdę dzieje</div>
+        <div class="result-desc">Przestaniesz brać winę za mechanizmy, które są zaprojektowane w Twoim mózgu. To zmienia wszystko.</div>
+      </div>
+      <div class="result-card reveal reveal-delay-1">
+        <span class="result-icon">📅</span>
+        <div class="result-title">Przeżyjesz kryzys 7. dnia</div>
+        <div class="result-desc">Będziesz go znał z imienia. Będziesz na niego gotowy. I po raz pierwszy przejdziesz przez niego na drugą stronę.</div>
+      </div>
+      <div class="result-card reveal reveal-delay-2">
+        <span class="result-icon">⚙️</span>
+        <div class="result-title">Zbudujesz system zamiast polegać na motywacji</div>
+        <div class="result-desc">Motywacja jest uczuciem — zawodnym. System działa nawet wtedy, gdy Tobie nie chce się nic.</div>
+      </div>
+      <div class="result-card reveal">
+        <span class="result-icon">↩️</span>
+        <div class="result-title">Nauczysz się wracać po wpadce</div>
+        <div class="result-desc">Bez wstydu, bez „od poniedziałku", bez spirali samobiczowania. Wpadka stanie się epizodem, nie końcem.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SCIENCE ══════════ -->
+<section class="section-science">
+  <div class="inner">
+    <div class="science-text">
+      <div class="section-eyebrow reveal">Podstawy naukowe</div>
+      <h2 class="section-title reveal reveal-delay-1">Oparty na badaniach,<br>napisany po ludzku.</h2>
+      <p class="section-lead reveal reveal-delay-2">Żadnych akademickich wywodów. Każde twierdzenie oparte jest na konkretnych badaniach — ale podane w sposób, który zapamiętasz i wdrożysz jeszcze tego wieczoru.</p>
+    </div>
+    <div class="science-badges reveal reveal-delay-1">
+      <div class="science-badge">
+        <div class="science-badge-icon">🔬</div>
+        <div class="science-badge-text">
+          <div class="science-badge-name">Prokrastynacja jako regulacja emocji</div>
+          <div class="science-badge-desc">Sirois & Pychyl, University of Toronto — 2016</div>
+        </div>
+      </div>
+      <div class="science-badge">
+        <div class="science-badge-icon">🔬</div>
+        <div class="science-badge-text">
+          <div class="science-badge-name">66 dni do zakodowania nawyku</div>
+          <div class="science-badge-desc">Lally et al., University College London — 2010</div>
+        </div>
+      </div>
+      <div class="science-badge">
+        <div class="science-badge-icon">🔬</div>
+        <div class="science-badge-text">
+          <div class="science-badge-name">Fresh start effect</div>
+          <div class="science-badge-desc">Hengchen Dai et al., Wharton School — 2014</div>
+        </div>
+      </div>
+      <div class="science-badge">
+        <div class="science-badge-icon">🔬</div>
+        <div class="science-badge-text">
+          <div class="science-badge-name">Samowspółczucie a powrót po porażce</div>
+          <div class="science-badge-desc">Neff & Vonk, University of Texas — 2009</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FOR WHOM ══════════ -->
+<section class="section-forwhom">
+  <div class="inner">
+    <div class="forwhom-yes">
+      <div class="section-eyebrow reveal">Dla kogo</div>
+      <h3 class="reveal reveal-delay-1">Ten ebook jest dla Ciebie, jeśli…</h3>
+      <ul class="check-list">
+        <li class="reveal">Zaczynałeś od nowa więcej niż raz — i za każdym razem kończyło się tak samo</li>
+        <li class="reveal reveal-delay-1">Masz dość coachingowych porad i pustych afirmacji w stylu „tylko uwierz w siebie"</li>
+        <li class="reveal reveal-delay-2">Chcesz zrozumieć <em>dlaczego</em> to się dzieje, nie tylko usłyszeć co powinieneś robić</li>
+        <li class="reveal reveal-delay-3">Biczujesz się po każdej wpadce i to sprawia, że odpuszczasz na dłużej</li>
+        <li class="reveal">Czujesz, że masz wszystkie zasoby, ale coś Cię zatrzymuje przed zmianą</li>
+      </ul>
+    </div>
+    <div class="forwhom-no">
+      <div class="section-eyebrow reveal" style="color: var(--ink-muted)">Nie dla kogo</div>
+      <h3 class="reveal reveal-delay-1">Ten ebook NIE jest dla Ciebie, jeśli…</h3>
+      <ul class="cross-list">
+        <li class="reveal">Szukasz kolejnej listy „10 nawyków skutecznych ludzi"</li>
+        <li class="reveal reveal-delay-1">Oczekujesz cudów bez żadnego wysiłku z Twojej strony</li>
+        <li class="reveal reveal-delay-2">Chcesz motywacyjnego zastrzyku, a nie narzędzi do pracy</li>
+        <li class="reveal reveal-delay-3">Jesteś przekonany, że już znasz wszystkie odpowiedzi</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ TESTIMONIALS ══════════ -->
+<section class="section-testimonials">
+  <div class="inner">
+    <div class="section-eyebrow reveal">Opinie czytelników</div>
+    <h2 class="section-title reveal reveal-delay-1">Co mówią ci,<br>którzy już przeczytali.</h2>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal">
+        <div class="testimonial-stars">
+          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+        </div>
+        <p class="testimonial-text">„W końcu ktoś wyjaśnił mi dlaczego zawsze odpuszczam — i nie kazał mi się za to winić. Rozdział o kryzysie 7. dnia zmienił sposób, w jaki patrzę na każde swoje postanowienie."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">M</div>
+          <div>
+            <div class="testimonial-name">Marta K.</div>
+            <div class="testimonial-role">graficzka, Warszawa</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal reveal-delay-1">
+        <div class="testimonial-stars">
+          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+        </div>
+        <p class="testimonial-text">„Kupiłem chyba dziesiąty ebook o produktywności. Ten jest inny — konkretny, szczery i bez ściemy. Plan Awaryjny działa naprawdę."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">P</div>
+          <div>
+            <div class="testimonial-name">Paweł R.</div>
+            <div class="testimonial-role">programista, Kraków</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal reveal-delay-2">
+        <div class="testimonial-stars">
+          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+        </div>
+        <p class="testimonial-text">„Przeczytałam w jedno popołudnie i od razu wdrożyłam kotwiczenie nawyków. Minął już miesiąc — trzymam się. To jest rekord w moim życiu."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">A</div>
+          <div>
+            <div class="testimonial-name">Agnieszka W.</div>
+            <div class="testimonial-role">nauczycielka, Poznań</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CTA / PRICE ══════════ -->
+<section class="section-cta" id="kup">
+  <div class="inner">
+    <div class="section-eyebrow reveal" style="justify-content:center">Zacznij dziś</div>
+    <h2 class="section-title reveal reveal-delay-1" style="text-align:center">Nie potrzebujesz<br>więcej motywacji.</h2>
+    <p class="section-lead reveal reveal-delay-2" style="text-align:center">Potrzebujesz mapy. To jest ta mapa.</p>
+
+    <div class="price-card reveal reveal-delay-1">
+      <div class="price-badge">Jednorazowy zakup · Dostęp natychmiastowy</div>
+      <div class="price-title">Dlaczego zawsze odpuszczasz po tygodniu?</div>
+      <div class="price-amount">
+        <sup>zł</sup>47 <del>zł 97</del>
+      </div>
+      <div class="price-note">Cena promocyjna — ważna do odwołania</div>
+      <ul class="price-features">
+        <li>Pełny ebook (Wstęp + 6 rozdziałów + Zakończenie)</li>
+        <li>Zadania wdrożeniowe do każdego rozdziału</li>
+        <li>Gotowy szablon Planu Awaryjnego</li>
+        <li>Format PDF + wersja interaktywna HTML</li>
+        <li>Dostęp natychmiastowy po zakupie</li>
+        <li>Dożywotni dostęp do aktualizacji</li>
+      </ul>
+      <a href="#" class="btn-buy">Kupuję teraz — zł 47 →</a>
+    </div>
+
+    <div class="cta-guarantee reveal">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+        <path d="M9 1.5L2.25 4.5v5.25c0 3.45 2.835 6.615 6.75 7.5 3.915-.885 6.75-4.05 6.75-7.5V4.5L9 1.5z" stroke="var(--ink-muted)" stroke-width="1.2" stroke-linejoin="round"/>
+        <path d="M6 9l2 2 4-4" stroke="var(--ink-muted)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      30-dniowa gwarancja zwrotu — jeśli nie jesteś zadowolony, zwracamy pieniądze.
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FAQ ══════════ -->
+<section class="section-faq">
+  <div class="inner">
+    <h2 class="section-title reveal">Pytania i odpowiedzi</h2>
+
+    <div class="faq-item reveal">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        W jakim formacie otrzymam ebook?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Otrzymujesz dwa formaty: PDF (do czytania w dowolnym czytniku i druku) oraz interaktywny plik HTML — otwierasz go w przeglądarce jak stronę WWW, z nawigacją między rozdziałami.</div>
+      </div>
+    </div>
+
+    <div class="faq-item reveal reveal-delay-1">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Jak długo zajmuje przeczytanie?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Większość czytelników przechodzi przez ebook w 2–3 godziny. Każdy rozdział jest zaprojektowany tak, żeby skończyć go w jedno posiedzenie — i od razu wdrożyć zadanie.</div>
+      </div>
+    </div>
+
+    <div class="faq-item reveal">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Czy to działa, jeśli próbowałem już wielu metod?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Ten ebook jest właśnie dla Ciebie. Nie oferuje kolejnej techniki do wypróbowania — oferuje wyjaśnienie, dlaczego poprzednie techniki nie zadziałały, i jak zbudować system, który działał będzie niezależnie od nastroju czy motywacji.</div>
+      </div>
+    </div>
+
+    <div class="faq-item reveal reveal-delay-1">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Kiedy otrzymam dostęp?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Natychmiast po potwierdzeniu płatności. Na podany adres e-mail otrzymujesz link do pobrania — możesz zacząć czytać jeszcze tego samego dnia.</div>
+      </div>
+    </div>
+
+    <div class="faq-item reveal">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Co jeśli ebook mi nie pomoże?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Oferujemy 30-dniową gwarancję zwrotu bez pytań. Jeśli nie jesteś zadowolony z zakupu — napisz do nas, a zwrócimy pełną kwotę.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Dlaczego <em>zawsze</em> odpuszczasz po tygodniu?</div>
+    <div class="footer-legal">
+      © 2025 · Wszelkie prawa zastrzeżone ·
+      <a href="#">Polityka prywatności</a> ·
+      <a href="#">Regulamin</a> ·
+      <a href="#">Kontakt</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════ STICKY BAR (mobile) ══════════ -->
+<div class="sticky-bar" id="sticky-bar">
+  <div class="sticky-bar-text">
+    <strong>Kup ebook — zł 47</strong>
+    Natychmiastowy dostęp
+  </div>
+  <a href="#kup" class="btn-primary" style="font-size:13px; padding:12px 20px; white-space:nowrap">Kup teraz →</a>
+</div>
+
+<!-- ─────────────────────────────────────────
+   SCRIPTS
+───────────────────────────────────────── -->
+<script>
+/* ── Scroll reveal ── */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+/* ── Nav scroll state ── */
+const nav = document.getElementById('main-nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+
+/* ── FAQ toggle ── */
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const answer = item.querySelector('.faq-answer');
+  const isOpen = item.classList.contains('open');
+
+  document.querySelectorAll('.faq-item.open').forEach(i => {
+    i.classList.remove('open');
+    i.querySelector('.faq-answer').style.maxHeight = '0';
+  });
+
+  if (!isOpen) {
+    item.classList.add('open');
+    answer.style.maxHeight = answer.scrollHeight + 'px';
+  }
+}
+
+/* ── Sticky bar show after hero ── */
+const stickyBar = document.getElementById('sticky-bar');
+const heroEl = document.querySelector('.hero');
+const stickyObserver = new IntersectionObserver((entries) => {
+  stickyBar.style.display = entries[0].isIntersecting ? 'none' : 'flex';
+}, { threshold: 0 });
+stickyObserver.observe(heroEl);
+
+/* ── Smooth anchor scroll ── */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const id = a.getAttribute('href').slice(1);
+    if (!id) return;
+    const target = document.getElementById(id);
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+</body>
+</html>
